@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Online - Salem RR Briyani</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="now.css">
+</head>
+<body>
+
+    <!-- Main Container Button to Open Order Panel -->
+    <div class="order-trigger-container">
+        <button class="btn main-order-btn" onclick="openOrderModal()">
+            <i class="fas fa-shopping-basket"></i> Order Now
+        </button>
+    </div>
+
+    <!-- Order Now Overlay Screen Modals -->
+    <div class="order-modal-overlay" id="orderModal">
+        <div class="order-modal-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-utensils"></i> Salem RR Briyani Menu</h2>
+                <button class="close-modal-btn" onclick="closeOrderModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body-content">
+                <!-- Menu Selection Stream -->
+                <div class="menu-selection-list">
+                    
+                    <!-- Item 1 -->
+                    <div class="menu-order-item">
+                        <img src="https://b.zmtcdn.com/data/reviews_photos/964/f7440676cf5cfe75889a44dfb1f0c964_1539852269.jpg" alt="Chicken Biryani">
+                        <div class="item-details">
+                            <h3>Special Chicken Dum Biryani</h3>
+                            <div class="item-price">RS 199</div>
+                        </div>
+                        <div class="quantity-controller">
+                            <button type="button" class="qty-btn" onclick="updateQty('chicken', -1)">-</button>
+                            <span class="qty-display" id="qty-chicken">0</span>
+                            <button type="button" class="qty-btn" onclick="updateQty('chicken', 1)">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="menu-order-item">
+                        <img src="https://content.jdmagicbox.com/comp/salem/e5/0427px427.x427.190408211538.y3e5/catalogue/salem-rr-biriyani-seelanaickenpatti-salem-multicuisine-restaurants-646fh7va52.jpg" alt="Mutton Biryani">
+                        <div class="item-details">
+                            <h3>Royal Mutton Biryani</h3>
+                            <div class="item-price">RS 299</div>
+                        </div>
+                        <div class="quantity-controller">
+                            <button type="button" class="qty-btn" onclick="updateQty('mutton', -1)">-</button>
+                            <span class="qty-display" id="qty-mutton">0</span>
+                            <button type="button" class="qty-btn" onclick="updateQty('mutton', 1)">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="menu-order-item">
+                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=800&auto=format&fit=crop" alt="Veg Biryani">
+                        <div class="item-details">
+                            <h3>Hyderabadi Veg Dum Biryani</h3>
+                            <div class="item-price">RS 149</div>
+                        </div>
+                        <div class="quantity-controller">
+                            <button type="button" class="qty-btn" onclick="updateQty('veg', -1)">-</button>
+                            <span class="qty-display" id="qty-veg">0</span>
+                            <button type="button" class="qty-btn" onclick="updateQty('veg', 1)">+</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Total Valuation Sticky Footer -->
+            <div class="modal-footer">
+                <div class="total-price-row">
+                    <span>Grand Total:</span>
+                    <span id="grandTotalDisplay">RS 0</span>
+                </div>
+                <button type="button" class="btn checkout-btn" onclick="processOrderPlacement()">
+                    Place Your Order <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Processing Interactions -->
+    <script>
+        const pricingTier = { chicken: 199, mutton: 299, veg: 149 };
+        const cartValues = { chicken: 0, mutton: 0, veg: 0 };
+
+        function openOrderModal() {
+            document.getElementById('orderModal').classList.add('active');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+        }
+
+        function updateQty(itemKey, arithmeticChange) {
+            let directSum = cartValues[itemKey] + arithmeticChange;
+            if (directSum >= 0) {
+                cartValues[itemKey] = directSum;
+                document.getElementById(`qty-${itemKey}`).innerText = directSum;
+                recalculateTotals();
+            }
+        }
+       
+    </script>
+</body>
+</html>
